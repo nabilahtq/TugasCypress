@@ -1,5 +1,5 @@
 const LoginPage = require('../support/pages/home-page/LoginPage')
-const homePageLogin = require('../support/pages/home-page/LoginPage')
+
 
 describe("Login", () => {
 
@@ -46,6 +46,7 @@ describe("Login", () => {
         LoginPage.clickLogInMenu()
         LoginPage.verifyLogInModalAppears()
         LoginPage.LogIn('Cipung123', "123456789")
+        LoginPage.verifyLoginSuccessfully()
         
     })
 

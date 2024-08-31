@@ -33,14 +33,7 @@ describe("Signup", () => {
 
     // })
 
-    it("with unregistered data", () => {
-        homePage.goToHomePage()
-        homePage.verifyHomePageAppears()
-        homePage.clickSignUpMenu()
-        homePage.verifySignUpModalAppears()
-        homePage.signUp('', 'bela12344444444')
-        homePage.verifyEmptyCredsErrorMessageAppears()
-    })
+   
 
     it("with empty data", () => {
         homePage.goToHomePage()
@@ -57,9 +50,18 @@ describe("Signup", () => {
         homePage.verifyHomePageAppears()
         homePage.clickSignUpMenu()
         homePage.verifySignUpModalAppears()
-        homePage.signUp('random', '12345678')
+        homePage.signUp('Cipung123', '123456789')
         homePage.verifyUserAlreadyExistsErrorMessageAppears()
 
+    })
+
+    it("with unregistered data", () => {
+        homePage.goToHomePage()
+        homePage.verifyHomePageAppears()
+        homePage.clickSignUpMenu()
+        homePage.verifySignUpModalAppears()
+        homePage.signUp('random', 'bela12344444444')
+        homePage.verifySignUpSuccessMessageAppears()
     })
 
 })

@@ -7,7 +7,7 @@ module.exports = {
     },
     success_message: {
         signup: 'Sign up successful.',
-        
+        alertaddproduct: 'Product added.'
     }
 }
 

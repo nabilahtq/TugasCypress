@@ -2,71 +2,104 @@ const locators = require('./home-page-locators');
 const { faker }  = require('@faker-js/faker');
 const staticVars = require('../static-variables')
 
-class LoginPage{
-    goToHomePage(){
-        cy.visit("https://www.demoblaze.com/index.html");
-    }
+class ChekoutPage{
 
-    verifyHomePageAppears(){
-        cy.xpath(locators.datatestid.imageCompanyLogo).should('be.visible');
-    }
-
-    clickLogInMenu() {
-        cy.xpath('//*[@id="login2"]').click();
-    }
-
-    verifyLogInModalAppears() {
-        cy.xpath('//*[@id="logInModalLabel"]', { timeout: 1000 }).should('be.visible');
-
-    }
-
-    fillUsername(username) { 
+    ClickProduct(){
         cy.wait(5000);
-        cy.xpath('//*[@id="loginusername"]', { timeout: 1000 }).should('be.visible');
-        cy.xpath('//*[@id="loginusername"]', { timeout: 5000}).type(username);
+        cy.xpath('//*[@href="prod.html?idp_=1" and contains (text(), "Samsung galaxy s6")]' , { timeout: 1000 }).click();
+    }
+
+    AddProduct(){
         
+        cy.wait(5000);
+        cy.xpath('//*[@onclick="addToCart(1)" and contains (text(), "Add to cart")]' , { timeout: 1000 }).click();
     }
 
-    fillPassword(password) {
-        cy.xpath('//*[@id="loginpassword"]').type('password');
-    }
-
-    clickLognInButton() {
-        cy.xpath(locators.datatestid.button('Log in')).click();
-    }
-
-    verifyAlertAppears(errorMessage) {
+    verifyAlertAppears(alertaddproduct) {
         cy.on('window:alert',(t)=>{
-            expect(t).to.contains(errorMessage);
+            expect(t).to.contains(alertaddproduct);
          })
     }
 
-    verifyEmptyCredsErrorMessageAppears() {
-        this.verifyAlertAppears(staticVars.error_message.empty_creds)
+    verifyAddProductSuccesfully(){
+        this.verifyAlertAppears(staticVars.success_message.alertaddproduct)
     }
 
-    verifyWrongPasswordErrorMessageAppears() {
-        this.verifyAlertAppears(staticVars.error_message.wrong_pass)
+    goToCartPage(){
+        cy.xpath('//*[@class="nav-link" and contains (text(), "Cart")]' , { timeout: 1000 }).click();
     }
 
-    verifyUnregisteredUserErrorMessageAppears() {
-        this.verifyAlertAppears(staticVars.error_message.unregistered)
+    ClickPlaceOrderButton(){
+        cy.xpath('//*[@ data-target="#orderModal" and contains (text(), "Place Order")]' , { timeout: 1000 }).click();
     }
 
-    verifyRegisteredUserSuccessMessageAppears() {
-        cy.xpath('//*[@id="nameofuser" and contains(text(), "Welcome Cipung123")]').should('be.visible');
-
+    verifyPlaceOrderModalAppears() {
+        cy.xpath('//*[@id="orderModalLabel"]', { timeout: 1000 }).should('be.visible');
     }
 
-    LogIn(username, password) {
-        if (username != '') {
-            this.fillUsername(username);
-            this.fillPassword(password);
+    fillName(name) {
+        cy.xpath('//*[@id="name"]').type(name);
+    }
+
+    fillCountry(country) {
+        cy.xpath('//*[@id="country"]').type(country);
+    }
+
+    fillCity(city) {
+        cy.xpath('//*[@id="city"]').type(city);
+    }
+
+    fillCard(card) {
+        cy.xpath('//*[@id="card"]').type(card);
+    }
+
+    fillMonth(month) {
+        cy.xpath('//*[@id="month"]').type(month);
+    }
+
+    fillYear(year) {
+        cy.xpath('//*[@id="year"]').type(year);
+    }
+
+    clickPurchaseButton() {
+        cy.xpath(locators.datatestid.button('Purchase')).click();
+    }
+
+    FillPlaceOrder(name, country, city, card, month, year) {
+        if (name != '') {
+            cy.wait(5000);
+            this.fillName(name, { timeout: 1000 });
+            this.fillCountry(country, { timeout: 1000 });
+            this.fillCity(city, { timeout: 1000 });
+            this.fillCard(card, { timeout: 1000 });
+            this.fillMonth(month, { timeout: 1000 });
+            this.fillYear(year, { timeout: 1000 });
         }
-        this.clickLognInButton()
+        this.clickPurchaseButton()
     }
+
+    verifyCreateOrderSuccessfully(){
+        cy.xpath('//*[@class="sa-placeholder"]', { timeout: 1000 }).should('be.visible');
+    }
+
+
+    
+
+
+
+
+
+    
+   
+
+
+
+
+
+    
+    
 
 
 }
 
-module.exports = new LoginPage();
+module.exports = new ChekoutPage();
