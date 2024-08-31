@@ -5,8 +5,6 @@ describe("Chekcout", () => {
 
     beforeEach(() => {
         // pre step
-    
-        
         
     })
 

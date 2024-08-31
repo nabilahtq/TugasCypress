@@ -14,7 +14,7 @@ class LoginPage{
     clickLogInMenu() {
         cy.xpath('//*[@id="login2"]').click();
     }
-
+    
     verifyLogInModalAppears() {
         cy.xpath('//*[@id="logInModalLabel"]', { timeout: 1000 }).should('be.visible');
 

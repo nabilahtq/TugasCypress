@@ -77,7 +77,7 @@ class ChekoutPage{
         }
         this.clickPurchaseButton()
     }
-
+    
     verifyCreateOrderSuccessfully(){
         cy.xpath('//*[@class="sa-placeholder"]', { timeout: 1000 }).should('be.visible');
     }

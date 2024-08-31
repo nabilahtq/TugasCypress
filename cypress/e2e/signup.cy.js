@@ -5,9 +5,6 @@ describe("Signup", () => {
     beforeEach(() => {
         // pre step
         
-        
-        
-        
     })
 
     // it("with valid data ver 1", () => {

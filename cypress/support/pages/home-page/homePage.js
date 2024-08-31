@@ -10,7 +10,7 @@ class homePage {
     verifyHomePageAppears() {
         cy.xpath(locators.datatestid.imageCompanyLogo).should('be.visible');
     }
-
+    
     clickSignUpMenu() {
         cy.xpath('//*[@id="signin2"]').click();
     }
