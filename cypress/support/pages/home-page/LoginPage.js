@@ -28,7 +28,7 @@ class LoginPage{
     }
 
     fillPassword(password) {
-        cy.xpath('//*[@id="loginpassword"]').type('password');
+        cy.xpath('//*[@id="loginpassword"]', { timeout: 1000 }).type(password);
     }
 
     clickLognInButton() {
@@ -37,20 +37,24 @@ class LoginPage{
 
     verifyAlertAppears(errorMessage) {
         cy.on('window:alert',(t)=>{
-            expect(t).to.contains(errorMessage);
+            expect(t).to.contains(errorMessage, { timeout: 1000 });
          })
     }
 
     verifyEmptyCredsErrorMessageAppears() {
-        this.verifyAlertAppears(staticVars.error_message.empty_creds)
+        this.verifyAlertAppears(staticVars.error_message.empty_creds, { timeout: 5000 })
     }
 
     verifyWrongPasswordErrorMessageAppears() {
-        this.verifyAlertAppears(staticVars.error_message.wrong_pass)
+        this.verifyAlertAppears(staticVars.error_message.wrong_pass, { timeout: 5000 })
     }
 
     verifyUnregisteredUserErrorMessageAppears() {
-        this.verifyAlertAppears(staticVars.error_message.unregistered)
+        this.verifyAlertAppears(staticVars.error_message.unregistered, { timeout: 5000 })
+    }
+
+    verifyLoginSuccessfully(){
+        cy.xpath('//*[@id="nameofuser" and contains (text(), "Welcome Cipung123")]' , { timeout: 1000 }).click();
     }
 
 

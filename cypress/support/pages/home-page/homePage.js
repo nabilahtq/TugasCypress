@@ -2,12 +2,12 @@ const locators = require('../home-page/home-page-locators');
 const { faker }  = require('@faker-js/faker');
 const staticVars = require('../static-variables')
 
-class homePage{
-    goToHomePage(){
-        cy.visit("https://www.demoblaze.com/index.html");
+class homePage {
+    goToHomePage() {
+        cy.visit('https://www.demoblaze.com/index.html');
     }
 
-    verifyHomePageAppears(){
+    verifyHomePageAppears() {
         cy.xpath(locators.datatestid.imageCompanyLogo).should('be.visible');
     }
 
@@ -17,23 +17,19 @@ class homePage{
 
     verifySignUpModalAppears() {
         cy.xpath('//*[@id="signInModalLabel"]', { timeout: 1000 }).should('be.visible');
-
     }
 
     fillUsername(username) {
-        if (username == 'random'){
-            var randomName = faker.person.firstName() + faker.number.int() + '@test.com'
-
+        if (username == 'random') {
+            username = faker.person.firstName() + faker.number.int() + '@test.com'
         }
-        
         cy.wait(5000);
         cy.xpath('//*[@id="sign-username"]', { timeout: 1000 }).should('be.visible');
         cy.xpath('//*[@id="sign-username"]', { timeout: 5000}).type(username);
-        
     }
 
     fillPassword(password) {
-        cy.xpath('//*[@id="sign-password"]').type('password');
+        cy.xpath('//*[@id="sign-password"]').type(password);
     }
 
     clickSignUpButton() {
@@ -50,13 +46,13 @@ class homePage{
         this.verifyAlertAppears(staticVars.error_message.empty_creds)
     }
 
-    verifyWrongPasswordErrorMessageAppears() {
-        this.verifyAlertAppears(staticVars.error_message.wrong_pass)
+    verifyUserAlreadyExistsErrorMessageAppears() {
+        this.verifyAlertAppears(staticVars.error_message.user_alr_exists)
     }
 
-    // verifySignUpSuccessMessageAppears() {
-    //     this.verifyAlertAppears(staticVars.success_message.signup)
-    // }
+    verifySignUpSuccessMessageAppears() {
+        this.verifyAlertAppears(staticVars.success_message.signup)
+    }
 
     signUp(username, password) {
         if (username != '') {
@@ -65,9 +61,6 @@ class homePage{
         }
         this.clickSignUpButton()
     }
-    
-    
-
 }
 
 module.exports = new homePage();
